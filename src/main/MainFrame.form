@@ -20,7 +20,9 @@
         <children>
           <component id="e40ce" class="javax.swing.JTextArea" binding="loggingArea">
             <constraints/>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
         </children>
       </scrollpane>
