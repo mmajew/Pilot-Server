@@ -8,8 +8,9 @@ public class ServerLogger {
 
     public static void initialize(JTextArea textArea) {
         loggingArea = textArea;
-
-        logMessage(AddressAssistant.getAddresses());
+        
+        AddressAssistant addressAssistant = new AddressAssistant();
+        logMessage(addressAssistant.getAddresses());
     }
 
     public static void logMessage(String message) {

@@ -10,22 +10,25 @@ import java.net.UnknownHostException;
 
 
 public class AddressAssistant {
-    private static final String addressError = "Nie powiodło się ustalenie adresu serwera.";
+    private final String ADDRESS_ERROR = "Nie powiodło się ustalenie adresu serwera.";
+    private final String IP_ADDRESS = "Adres IP serwera: ";
+    private final String LOCAL_ADDRESS = "Lokalny adres IP serwera: ";
+    private final String EXTERNAL_ADDRESS = "Zewnętrzny adres IP serwera: ";
 
-    public static String getAddresses() {
+    public String getAddresses() {
         String result;
 
         String localAddress = getLocalAddress();
         String externalAddress = getExternalAddress();
 
-        if(localAddress.equals("")) result = addressError;
-        else if(localAddress.equals(externalAddress)) result = "Adres IP serwera: " + localAddress;
-        else result = "Lokalny adres IP serwera: " + localAddress + " \nZewnętrzny adres IP serwera: " + externalAddress;
+        if(localAddress.equals("")) result = ADDRESS_ERROR;
+        else if(localAddress.equals(externalAddress)) result = IP_ADDRESS + localAddress;
+        else result = LOCAL_ADDRESS + localAddress + "\n" + EXTERNAL_ADDRESS + externalAddress;
 
         return result;
     }
 
-    private static String getLocalAddress() {
+    private String getLocalAddress() {
         String result = "";
 
         try {
@@ -35,7 +38,7 @@ public class AddressAssistant {
         return result;
     }
 
-    private static String getExternalAddress() {
+    private String getExternalAddress() {
         String result = "";
 
         try {
