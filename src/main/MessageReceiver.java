@@ -16,14 +16,16 @@ public class MessageReceiver {
         pingHandler = new PingHandler();
         validationHandler = new ValidationHandler();
 
-        pingHandler.initializeTimeoutTimer();
         server = tcpServer;
     }
 
     public void receiveMessage(Message message) {
         if(!server.isConnectionConfirmed()) {
-            if(message.compareHeader("C:CONN"))
+            if(message.compareHeader("C:CONN")) {
                 validationHandler.handle(message);
+                if(validationHandler.getResult())
+                    pingHandler.initializeTimeoutTimer();
+            }
         }
         else {
             switch (message.getHeader()) {

@@ -9,6 +9,7 @@ import javax.swing.*;
  * Created by marmajew on 4/20/2015.
  */
 public class ValidationHandler extends TaskHandler {
+    private boolean result = false;
 
     public void handle(Message request) {
         String clientName = request.getBody() + " (" + server.getClientAddress() + ")";
@@ -21,11 +22,16 @@ public class ValidationHandler extends TaskHandler {
             ServerLogger.logMessage("Połaczono z " + clientName);
             server.setConnectionConfirmed(true);
             server.sendMessage("S:ACK");
+            result = true;
         }
         else {
             ServerLogger.logMessage("Odrzucono połączenie z " + clientName);
             server.sendMessage("S:NACK");
             server.close();
         }
+    }
+
+    public boolean getResult() {
+        return result;
     }
 }

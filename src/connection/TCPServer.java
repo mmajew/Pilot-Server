@@ -54,12 +54,14 @@ public class TCPServer extends Thread {
     @Override
     public void run() {
         try {
+            System.out.println("Starting");
             ServerLogger.logMessage("Oczekiwanie na połączenie.");
             serverSocket = new ServerSocket(SERVER_PORT);
             clientSocket = serverSocket.accept();
             clientSocket.setKeepAlive(true);
 
             try {
+                System.out.println("Initialized");
                 MessageReceiver messageReceiver = new MessageReceiver(this);
                 messageWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
                 BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));

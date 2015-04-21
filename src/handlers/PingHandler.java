@@ -23,6 +23,7 @@ public class PingHandler extends TaskHandler {
             @Override
             public void run() {
                 if (!isPinged) {
+                    System.out.println("Ping timedout");
                     ServerLogger.logMessage("Utracono połączenie");
                     server.close();
                     this.cancel();
