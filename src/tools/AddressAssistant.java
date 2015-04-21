@@ -15,8 +15,8 @@ public class AddressAssistant {
     public static String getAddresses() {
         String result;
 
-        String localAddress = getLocalAddress(); //"Lokalny adres IP serwera: " +
-        String externalAddress = getExternalAddress(); //" + ;
+        String localAddress = getLocalAddress();
+        String externalAddress = getExternalAddress();
 
         if(localAddress.equals("")) result = addressError;
         else if(localAddress.equals(externalAddress)) result = "Adres IP serwera: " + localAddress;
@@ -30,8 +30,7 @@ public class AddressAssistant {
 
         try {
             result += InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ignored) {
-        }
+        } catch (UnknownHostException ignored) {}
 
         return result;
     }
@@ -49,8 +48,7 @@ public class AddressAssistant {
             result += new BufferedReader(new InputStreamReader(
                     connection.getInputStream())).readLine();
 
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) {}
 
         return result;
     }
