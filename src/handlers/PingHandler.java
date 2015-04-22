@@ -11,8 +11,9 @@ import java.util.TimerTask;
 
 public class PingHandler extends TaskHandler {
     private boolean isPinged = false;
+    private Timer timeoutTimer = new Timer();
 
-    public void handle(Message message) {
+    public void handlePing() {
         isPinged = true;
         server.sendMessage(ServerMessages.SERVER_PONG);
     }
@@ -20,7 +21,7 @@ public class PingHandler extends TaskHandler {
     public void initializeTimeoutTimer() {
         int timeout =  12 * 1000;
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        timeoutTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!isPinged) {
@@ -32,5 +33,10 @@ public class PingHandler extends TaskHandler {
                 isPinged = false;
             }
         }, timeout, timeout);
+    }
+
+    public void stopTimeoutTimer() {
+        if(timeoutTimer != null)
+            timeoutTimer.cancel();
     }
 }

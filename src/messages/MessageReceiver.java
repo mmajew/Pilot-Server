@@ -2,12 +2,15 @@ package messages;
 
 import connection.TCPServer;
 import controlers.CursorControler;
+import handlers.DisconnectionHandler;
 import handlers.PingHandler;
 import handlers.ValidationHandler;
 
 
 public class MessageReceiver {
     private CursorControler cursorControler;
+
+    private DisconnectionHandler disconnectionHandler;
     private PingHandler pingHandler;
     private ValidationHandler validationHandler;
 
@@ -17,6 +20,7 @@ public class MessageReceiver {
         cursorControler = new CursorControler();
         pingHandler = new PingHandler();
         validationHandler = new ValidationHandler();
+        disconnectionHandler = new DisconnectionHandler();
 
         server = tcpServer;
     }
@@ -32,7 +36,7 @@ public class MessageReceiver {
         else {
             switch (message.getHeader()) {
                 case ClientMessages.PING:
-                    pingHandler.handle(message);
+                    pingHandler.handlePing();
                     break;
                 case ClientMessages.LEFT_CLICK:
                     cursorControler.handleLeftMouseClick();
@@ -46,11 +50,16 @@ public class MessageReceiver {
                     //    mRobot.mouseMove(updatedMousePosition.x, updatedMousePosition.y);
                     break;
                 case ClientMessages.CLOSE:
-                    server.close();
+                    disconnectionHandler.handleClientDisconnected();
+                    stopHandlers();
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    public void stopHandlers() {
+        pingHandler.stopTimeoutTimer();
     }
 }
