@@ -1,7 +1,8 @@
 package handlers;
 
 
-import tools.Message;
+import messages.Message;
+import messages.ServerMessages;
 import tools.ServerLogger;
 
 import java.util.Timer;
@@ -13,11 +14,11 @@ public class PingHandler extends TaskHandler {
 
     public void handle(Message message) {
         isPinged = true;
-        server.sendMessage("S:PONG");
+        server.sendMessage(ServerMessages.SERVER_PONG);
     }
 
     public void initializeTimeoutTimer() {
-        int timeout =  10 * 1000;
+        int timeout =  12 * 1000;
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override

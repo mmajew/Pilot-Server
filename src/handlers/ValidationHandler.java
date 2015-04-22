@@ -1,6 +1,7 @@
 package handlers;
 
-import tools.Message;
+import messages.Message;
+import messages.ServerMessages;
 import tools.ServerLogger;
 
 import javax.swing.*;
@@ -20,13 +21,13 @@ public class ValidationHandler extends TaskHandler {
         if (response == JOptionPane.YES_OPTION)
         {
             ServerLogger.logMessage("Połaczono z " + clientName);
-            server.setConnectionConfirmed(true);
-            server.sendMessage("S:ACK");
+            server.confirmConnection();
+            server.sendMessage(ServerMessages.CONNECTION_ACK);
             result = true;
         }
         else {
             ServerLogger.logMessage("Odrzucono połączenie z " + clientName);
-            server.sendMessage("S:NACK");
+            server.sendMessage(ServerMessages.CONNECTION_NACK);
             server.close();
         }
     }

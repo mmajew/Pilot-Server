@@ -1,7 +1,9 @@
 package main;
 
 import connection.TCPServer;
+import controlers.Controler;
 import handlers.TaskHandler;
+import messages.ServerMessages;
 import tools.ServerLogger;
 
 import javax.swing.*;
@@ -28,15 +30,27 @@ public class MainFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        Controler.initialize();
         runButton.addActionListener((ActionEvent event) -> {
-            server = new TCPServer(this);
-            TaskHandler.initialize(server);
-            server.start();
-            runButton.setEnabled(false);
+            if (server != null && server.isRunning()) {
+                server.sendMessage(ServerMessages.CONNECTION_NACK);
+                server.close();
+            } else {
+                server = new TCPServer(this);
+                TaskHandler.initialize(server);
+                server.start();
+                runButton.setEnabled(false);
+            }
         });
     }
 
-    public void setEnabledRunButton(boolean state) {
-        runButton.setEnabled(state);
+    public void enableStartButton() {
+        runButton.setText("Start");
+        runButton.setEnabled(true);
+    }
+
+    public void enableStopButton() {
+        runButton.setText("Stop");
+        runButton.setEnabled(true);
     }
 }

@@ -23,6 +23,7 @@ public class AddressAssistant {
 
         if(localAddress.equals("")) result = ADDRESS_ERROR;
         else if(localAddress.equals(externalAddress)) result = IP_ADDRESS + localAddress;
+        else if(externalAddress.equals("")) result = LOCAL_ADDRESS + localAddress;
         else result = LOCAL_ADDRESS + localAddress + "\n" + EXTERNAL_ADDRESS + externalAddress;
 
         return result;

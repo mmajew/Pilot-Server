@@ -1,8 +1,8 @@
 package connection;
 
 import main.MainFrame;
-import tools.Message;
-import main.MessageReceiver;
+import messages.Message;
+import messages.MessageReceiver;
 import tools.ServerLogger;
 
 import java.io.*;
@@ -22,18 +22,6 @@ public class TCPServer extends Thread {
 
     private boolean isRunning = false;
     private boolean isConfirmed = false;
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    public void setConnectionConfirmed(boolean state) {
-        isConfirmed = state;
-    }
-
-    public boolean isConnectionConfirmed() {
-        return isConfirmed;
-    }
 
     public TCPServer(MainFrame frame) {
         serverFrame = frame;
@@ -68,6 +56,8 @@ public class TCPServer extends Thread {
 
                 clientAddress = clientSocket.getRemoteSocketAddress().toString().substring(1);
                 isRunning = true;
+                serverFrame.enableStopButton();
+
                 while (isRunning) {
                     String message = inputBuffer.readLine();
                     if (message != null) {
@@ -84,14 +74,25 @@ public class TCPServer extends Thread {
     }
 
     public void close() {
-        serverFrame.setEnabledRunButton(true);
         isRunning = false;
-
         try {
             serverSocket.close();
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        serverFrame.enableStartButton();
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void confirmConnection() {
+        isConfirmed = true;
+    }
+
+    public boolean isConnectionConfirmed() {
+        return isConfirmed;
     }
 }

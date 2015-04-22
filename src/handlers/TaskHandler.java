@@ -1,7 +1,7 @@
 package handlers;
 
 import connection.TCPServer;
-import tools.Message;
+import messages.Message;
 
 
 public abstract class TaskHandler {
