@@ -6,14 +6,12 @@ import tools.ServerLogger;
 
 import javax.swing.*;
 
-/**
- * Created by marmajew on 4/20/2015.
- */
+
 public class ValidationHandler extends TaskHandler {
     private boolean result = false;
 
     public void handle(Message request) {
-        String clientName = request.getBody() + " (" + server.getClientAddress() + ")";
+        String clientName = request.getBody() + " (" + tcpServer.getClientAddress() + ")";
 
         int response = JOptionPane.showConfirmDialog(null, "Klient o nazwie " + clientName + " próbuje się połączyć",
                 "Próba połączenia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -21,14 +19,14 @@ public class ValidationHandler extends TaskHandler {
         if (response == JOptionPane.YES_OPTION)
         {
             ServerLogger.logMessage("Połaczono z " + clientName);
-            server.confirmConnection();
-            server.sendMessage(ServerMessages.CONNECTION_ACK);
+            tcpServer.confirmConnection();
+            tcpServer.sendMessage(ServerMessages.CONNECTION_ACK);
             result = true;
         }
         else {
             ServerLogger.logMessage("Odrzucono połączenie z " + clientName);
-            server.sendMessage(ServerMessages.CONNECTION_NACK);
-            server.close();
+            tcpServer.sendMessage(ServerMessages.CONNECTION_NACK);
+            tcpServer.close();
         }
     }
 

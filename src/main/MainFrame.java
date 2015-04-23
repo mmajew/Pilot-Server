@@ -1,6 +1,6 @@
 package main;
 
-import connection.TCPServer;
+import connection.TcpServer;
 import controlers.Controler;
 import handlers.TaskHandler;
 import messages.ServerMessages;
@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 
 
 public class MainFrame {
-    private TCPServer server;
+    private TcpServer server;
     private JPanel mainPanel;
     private JTextArea loggingArea;
     private JButton runButton;
@@ -36,8 +36,7 @@ public class MainFrame {
                 server.sendMessage(ServerMessages.CONNECTION_NACK);
                 server.close();
             } else {
-                server = new TCPServer(this);
-                TaskHandler.initialize(server);
+                server = new TcpServer(this);
                 server.start();
                 runButton.setEnabled(false);
             }

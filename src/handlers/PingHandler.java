@@ -1,7 +1,6 @@
 package handlers;
 
 
-import messages.Message;
 import messages.ServerMessages;
 import tools.ServerLogger;
 
@@ -10,27 +9,33 @@ import java.util.TimerTask;
 
 
 public class PingHandler extends TaskHandler {
+    private Timer timer = new Timer();
     private boolean isPinged = false;
 
-    public void handle(Message message) {
+    public void handle() {
         isPinged = true;
-        server.sendMessage(ServerMessages.SERVER_PONG);
+        tcpServer.sendMessage(ServerMessages.SERVER_PONG);
     }
 
     public void initializeTimeoutTimer() {
         int timeout =  12 * 1000;
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!isPinged) {
                     System.out.println("Ping timedout");
                     ServerLogger.logMessage("Utracono połączenie");
-                    server.close();
+                    tcpServer.close();
+                    udpServer.close();
                     this.cancel();
                 }
                 isPinged = false;
             }
         }, timeout, timeout);
+    }
+
+    public void stopTimeoutTimer() {
+        timer.cancel();
     }
 }

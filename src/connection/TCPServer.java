@@ -10,12 +10,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-public class TCPServer extends Thread {
+public class TcpServer extends Thread {
     final public static int SERVER_PORT = 4444;
 
     private String clientAddress;
     private PrintWriter messageWriter;
     private MainFrame serverFrame;
+    private MessageReceiver messageReceiver;
 
     ServerSocket serverSocket;
     Socket clientSocket;
@@ -23,7 +24,7 @@ public class TCPServer extends Thread {
     private boolean isRunning = false;
     private boolean isConfirmed = false;
 
-    public TCPServer(MainFrame frame) {
+    public TcpServer(MainFrame frame) {
         serverFrame = frame;
     }
 
@@ -50,7 +51,7 @@ public class TCPServer extends Thread {
 
             try {
                 System.out.println("Initialized");
-                MessageReceiver messageReceiver = new MessageReceiver(this);
+                messageReceiver = new MessageReceiver(this);
                 messageWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
                 BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -74,6 +75,9 @@ public class TCPServer extends Thread {
     }
 
     public void close() {
+        if(messageReceiver != null) {
+            messageReceiver.close();
+        }
         isRunning = false;
         try {
             serverSocket.close();
