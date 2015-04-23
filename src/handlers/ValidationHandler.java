@@ -19,8 +19,14 @@ public class ValidationHandler extends TaskHandler {
         if (response == JOptionPane.YES_OPTION)
         {
             ServerLogger.logMessage("Połaczono z " + clientName);
+<<<<<<< HEAD
             tcpServer.confirmConnection();
             tcpServer.sendMessage(ServerMessages.CONNECTION_ACK);
+=======
+            server.confirmConnection();
+            server.saveClientName(clientName);
+            server.sendMessage(ServerMessages.CONNECTION_ACK);
+>>>>>>> a9358e5423342008671b14c5da2fd145298ec1f9
             result = true;
         }
         else {

@@ -14,6 +14,7 @@ public class TcpServer extends Thread {
     final public static int SERVER_PORT = 4444;
 
     private String clientAddress;
+    private String clientName;
     private PrintWriter messageWriter;
     private MainFrame serverFrame;
     private MessageReceiver messageReceiver;
@@ -38,6 +39,14 @@ public class TcpServer extends Thread {
 
     public String getClientAddress() {
         return clientAddress != null ? clientAddress : "";
+    }
+
+    public void saveClientName(String name) {
+        clientName = name;
+    }
+
+    public String getClientName() {
+        return clientName != null ? clientName : "";
     }
 
     @Override

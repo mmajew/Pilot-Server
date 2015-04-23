@@ -3,6 +3,7 @@ package messages;
 import connection.TcpServer;
 import connection.UdpServer;
 import controlers.CursorControler;
+import handlers.DisconnectionHandler;
 import handlers.PingHandler;
 import handlers.TaskHandler;
 import handlers.UdpConnectionHandler;
@@ -11,6 +12,8 @@ import handlers.ValidationHandler;
 
 public class MessageReceiver {
     private CursorControler cursorControler;
+
+    private DisconnectionHandler disconnectionHandler;
     private PingHandler pingHandler;
     private ValidationHandler validationHandler;
     private UdpConnectionHandler udpConnectionHandler;
@@ -26,7 +29,13 @@ public class MessageReceiver {
         cursorControler = new CursorControler();
         pingHandler = new PingHandler();
         validationHandler = new ValidationHandler();
+<<<<<<< HEAD
         udpConnectionHandler = new UdpConnectionHandler();
+=======
+        disconnectionHandler = new DisconnectionHandler();
+
+        server = tcpServer;
+>>>>>>> a9358e5423342008671b14c5da2fd145298ec1f9
     }
 
     public void receiveMessage(Message message) {
@@ -40,11 +49,15 @@ public class MessageReceiver {
         else {
             switch (message.getHeader()) {
                 case ClientMessages.PING:
+<<<<<<< HEAD
                     pingHandler.handle();
                     break;
 
                 case ClientMessages.TOUCH_AREA_SIZE:
                     cursorControler.setTouchAreaSize(message);
+=======
+                    pingHandler.handlePing();
+>>>>>>> a9358e5423342008671b14c5da2fd145298ec1f9
                     break;
 
                 case ClientMessages.LEFT_CLICK:
@@ -60,11 +73,16 @@ public class MessageReceiver {
                     break;
 
                 case ClientMessages.CLOSE:
+<<<<<<< HEAD
                     tcpServer.close();
                     break;
 
                 case ClientMessages.UDP_REQUEST:
                     udpConnectionHandler.handle(message);
+=======
+                    disconnectionHandler.handleClientDisconnected();
+                    stopHandlers();
+>>>>>>> a9358e5423342008671b14c5da2fd145298ec1f9
                     break;
 
                 default:
@@ -73,8 +91,13 @@ public class MessageReceiver {
         }
     }
 
+<<<<<<< HEAD
     public void close() {
         pingHandler.stopTimeoutTimer();
         udpServer.close();
+=======
+    public void stopHandlers() {
+        pingHandler.stopTimeoutTimer();
+>>>>>>> a9358e5423342008671b14c5da2fd145298ec1f9
     }
 }

@@ -8,7 +8,7 @@ public class ServerLogger {
 
     public static void initialize(JTextArea textArea) {
         loggingArea = textArea;
-        
+
         AddressAssistant addressAssistant = new AddressAssistant();
         logMessage(addressAssistant.getAddresses());
     }
