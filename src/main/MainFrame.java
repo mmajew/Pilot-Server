@@ -17,12 +17,12 @@ public class MainFrame {
     private JButton runButton;
     private JButton settingsButton;
 
+    private Settings settings;
+
     public MainFrame() {
         ServerLogger.initialize(loggingArea);
-        initializeComponents();
-    }
+        settings = new Settings();
 
-    public void initializeComponents() {
         JFrame frame = new JFrame("Serwer");
         frame.setContentPane(this.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,22 +30,32 @@ public class MainFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        initializeComponents();
+    }
+
+    public void initializeComponents() {
         Controler.initialize();
         runButton.addActionListener((ActionEvent event) -> {
             if (server != null && server.isRunning()) {
                 server.sendMessage(ServerMessages.CONNECTION_NACK);
                 server.close();
             } else {
-                server = new TcpServer(this);
+                server = new TcpServer(this, settings);
                 server.start();
                 runButton.setEnabled(false);
+                settingsButton.setEnabled(false);
             }
+        });
+
+        settingsButton.addActionListener((ActionEvent event) -> {
+            new SettingsFrame(settings);
         });
     }
 
     public void enableStartButton() {
         runButton.setText("Start");
         runButton.setEnabled(true);
+        settingsButton.setEnabled(true);
     }
 
     public void enableStopButton() {

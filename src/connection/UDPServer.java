@@ -1,5 +1,8 @@
 package connection;
 
+import messages.Message;
+import messages.MessageReceiver;
+import messages.UdpMessageReceiver;
 import tools.ServerLogger;
 
 import java.io.IOException;
@@ -24,11 +27,12 @@ public class UdpServer extends Thread {
         byte[] datagram = new byte[1024];
         isRunning = true;
         try {
+            UdpMessageReceiver messageReceiver = new UdpMessageReceiver();
             while (isRunning) {
                 DatagramPacket receivePacket = new DatagramPacket(datagram, datagram.length);
                 socket.receive(receivePacket);
                 String message = new String(receivePacket.getData());
-                System.out.println("Received: " + message);
+                messageReceiver.receiveMessage(new Message(message));
             }
         } catch(IOException exception) {
             System.out.println("Error receiving an UDP packet.");

@@ -1,6 +1,7 @@
 package connection;
 
 import main.MainFrame;
+import main.Settings;
 import messages.Message;
 import messages.MessageReceiver;
 import tools.ServerLogger;
@@ -11,8 +12,6 @@ import java.net.Socket;
 
 
 public class TcpServer extends Thread {
-    final public static int SERVER_PORT = 4444;
-
     private String clientAddress;
     private String clientName;
     private PrintWriter messageWriter;
@@ -22,11 +21,13 @@ public class TcpServer extends Thread {
     ServerSocket serverSocket;
     Socket clientSocket;
 
+    private Settings serverSettings;
     private boolean isRunning = false;
     private boolean isConfirmed = false;
 
-    public TcpServer(MainFrame frame) {
+    public TcpServer(MainFrame frame, Settings settings) {
         serverFrame = frame;
+        serverSettings = settings;
     }
 
     public void sendMessage(String message){
@@ -54,7 +55,7 @@ public class TcpServer extends Thread {
         try {
             System.out.println("Starting");
             ServerLogger.logMessage("Oczekiwanie na połączenie.");
-            serverSocket = new ServerSocket(SERVER_PORT);
+            serverSocket = new ServerSocket(serverSettings.getPort());
             clientSocket = serverSocket.accept();
             clientSocket.setKeepAlive(true);
 
@@ -107,5 +108,9 @@ public class TcpServer extends Thread {
 
     public boolean isConnectionConfirmed() {
         return isConfirmed;
+    }
+
+    public boolean isAutoConfimEnabled() {
+        return serverSettings.getEnableAutoConfirm();
     }
 }
