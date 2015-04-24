@@ -15,7 +15,7 @@ public class MainFrame {
     private JPanel mainPanel;
     private JTextArea loggingArea;
     private JButton runButton;
-    private JButton button2;
+    private JButton settingsButton;
 
     public MainFrame() {
         ServerLogger.initialize(loggingArea);
