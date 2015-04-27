@@ -3,9 +3,7 @@ package main;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-/**
- * Created by marmajew on 4/24/2015.
- */
+
 public class SettingsFrame {
     private JPanel settingsPanel;
     private JTextField portTextField;

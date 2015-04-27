@@ -1,9 +1,7 @@
 package connection;
 
 import messages.Message;
-import messages.MessageReceiver;
 import messages.UdpMessageReceiver;
-import tools.ServerLogger;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

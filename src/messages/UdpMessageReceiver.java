@@ -2,9 +2,7 @@ package messages;
 
 import controlers.RelativeCursorControler;
 
-/**
- * Created by marmajew on 4/24/2015.
- */
+
 public class UdpMessageReceiver {
     private RelativeCursorControler cursorControler;
 

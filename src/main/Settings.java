@@ -1,8 +1,6 @@
 package main;
 
-/**
- * Created by marmajew on 4/24/2015.
- */
+
 public class Settings {
     private boolean allowAutoConfirm;
     private Integer port;
