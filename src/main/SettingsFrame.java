@@ -1,5 +1,7 @@
 package main;
 
+import servers.Settings;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 

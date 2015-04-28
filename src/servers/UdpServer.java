@@ -1,4 +1,4 @@
-package connection;
+package servers;
 
 import messages.Message;
 import messages.UdpMessageReceiver;

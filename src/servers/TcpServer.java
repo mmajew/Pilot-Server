@@ -1,7 +1,6 @@
-package connection;
+package servers;
 
 import main.MainFrame;
-import main.Settings;
 import messages.Message;
 import messages.MessageReceiver;
 import tools.ServerLogger;
@@ -13,7 +12,6 @@ import java.net.Socket;
 
 public class TcpServer extends Thread {
     private String clientAddress;
-    private String clientName;
     private PrintWriter messageWriter;
     private MainFrame serverFrame;
     private MessageReceiver messageReceiver;
@@ -38,64 +36,63 @@ public class TcpServer extends Thread {
         }
     }
 
-    public String getClientAddress() {
-        return clientAddress != null ? clientAddress : "";
-    }
-
-    public void saveClientName(String name) {
-        clientName = name;
-    }
-
-    public String getClientName() {
-        return clientName != null ? clientName : "";
+    public void runServerLoop(BufferedReader inputBuffer) throws IOException {
+        while (isRunning) {
+            String message = inputBuffer.readLine();
+            if (message != null) {
+                System.out.println("Received: " + message);
+                messageReceiver.receiveMessage(new Message(message));
+            }
+        }
     }
 
     @Override
     public void run() {
         try {
-            System.out.println("Starting");
-            ServerLogger.logMessage("Oczekiwanie na połączenie.");
+            isRunning = true;
+
+            serverFrame.enableStopButton();
+            ServerLogger.logMessage("Oczekiwanie na połączenie");
+
             serverSocket = new ServerSocket(serverSettings.getPort());
             clientSocket = serverSocket.accept();
             clientSocket.setKeepAlive(true);
+            clientAddress = clientSocket.getRemoteSocketAddress().toString().substring(1);
 
-            try {
-                System.out.println("Initialized");
-                messageReceiver = new MessageReceiver(this);
-                messageWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
-                BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            messageWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
+            BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-                clientAddress = clientSocket.getRemoteSocketAddress().toString().substring(1);
-                isRunning = true;
-                serverFrame.enableStopButton();
+            messageReceiver = new MessageReceiver(this);
+            runServerLoop(inputBuffer);
 
-                while (isRunning) {
-                    String message = inputBuffer.readLine();
-                    if (message != null) {
-                        System.out.println("Received: " + message);
-                        messageReceiver.receiveMessage(new Message(message));
-                    }
-                }
-            } finally {
-                this.close();
-            }
         } catch (IOException exception) {
-            System.out.println(exception.getMessage());
+            if(isRunning)
+                ServerLogger.logMessage("Utracono połaczenie");
+            else
+                ServerLogger.logMessage("Zatrzymano serwer");
+        }finally {
+            this.close();
         }
     }
 
     public void close() {
+        isRunning = false;
         if(messageReceiver != null) {
             messageReceiver.close();
         }
-        isRunning = false;
         try {
-            serverSocket.close();
-            clientSocket.close();
+            if(serverSocket != null)
+                serverSocket.close();
+            if(clientSocket != null)
+                clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         serverFrame.enableStartButton();
+    }
+
+    public String getClientAddress() {
+        return clientAddress != null ? clientAddress : "";
     }
 
     public boolean isRunning() {

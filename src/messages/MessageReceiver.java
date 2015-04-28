@@ -1,7 +1,7 @@
 package messages;
 
-import connection.TcpServer;
-import connection.UdpServer;
+import servers.TcpServer;
+import servers.UdpServer;
 import controlers.AbsoluteCursorControler;
 import handlers.DisconnectionHandler;
 import handlers.PingHandler;

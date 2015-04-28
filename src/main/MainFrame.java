@@ -1,6 +1,7 @@
 package main;
 
-import connection.TcpServer;
+import servers.Settings;
+import servers.TcpServer;
 import controlers.Controler;
 import messages.ServerMessages;
 import tools.ServerLogger;
@@ -40,9 +41,9 @@ public class MainFrame {
                 server.close();
             } else {
                 server = new TcpServer(this, settings);
-                server.start();
                 runButton.setEnabled(false);
                 settingsButton.setEnabled(false);
+                server.start();
             }
         });
 

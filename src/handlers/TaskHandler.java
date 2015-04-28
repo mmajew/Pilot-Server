@@ -1,7 +1,7 @@
 package handlers;
 
-import connection.TcpServer;
-import connection.UdpServer;
+import servers.TcpServer;
+import servers.UdpServer;
 
 
 public abstract class TaskHandler {

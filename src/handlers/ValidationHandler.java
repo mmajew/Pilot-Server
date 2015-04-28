@@ -31,7 +31,6 @@ public class ValidationHandler extends TaskHandler {
     private void confirmConnection(String clientName) {
         ServerLogger.logMessage("Połaczono z " + clientName);
         tcpServer.confirmConnection();
-        tcpServer.saveClientName(clientName);
         tcpServer.sendMessage(ServerMessages.CONNECTION_ACK);
         result = true;
     }
