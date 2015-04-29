@@ -1,5 +1,6 @@
 package messages;
 
+import controlers.KeyboardControler;
 import servers.TcpServer;
 import servers.UdpServer;
 import controlers.AbsoluteCursorControler;
@@ -12,6 +13,7 @@ import handlers.ValidationHandler;
 
 public class MessageReceiver {
     private AbsoluteCursorControler absoluteCursorControler;
+    private KeyboardControler keyboardControler;
 
     private DisconnectionHandler disconnectionHandler;
     private PingHandler pingHandler;
@@ -24,9 +26,11 @@ public class MessageReceiver {
     public MessageReceiver(TcpServer tcpServer) {
         this.udpServer = new UdpServer();
         this.tcpServer = tcpServer;
-        TaskHandler.initialize(tcpServer, udpServer);
 
+        keyboardControler = new KeyboardControler();
         absoluteCursorControler = new AbsoluteCursorControler();
+
+        TaskHandler.initialize(tcpServer, udpServer);
         pingHandler = new PingHandler();
         validationHandler = new ValidationHandler();
         udpConnectionHandler = new UdpConnectionHandler();
@@ -70,6 +74,13 @@ public class MessageReceiver {
                 case ClientMessages.UDP_REQUEST:
                     udpConnectionHandler.handle(message);
                     break;
+
+                case ClientMessages.TCP_KEY_DOWN:
+                    keyboardControler.handleKeyDown(message);
+                    break;
+
+                case ClientMessages.TCP_KEY_UP:
+                    keyboardControler.handleKeyUp(message);
 
                 default:
                     break;
