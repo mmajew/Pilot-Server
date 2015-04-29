@@ -3,21 +3,18 @@ package controlers;
 
 import messages.Message;
 
-import java.awt.event.KeyEvent;
-import java.util.Map;
-
 public class KeyboardControler extends Controler {
-    private Map keyMap;
+    private KeyMap keyMap;
 
     public KeyboardControler() {
-        keyMap = new KeyMap().initializeKeyMap();
+        keyMap = new KeyMap();
     }
 
     public void handleKeyDown(Message message) {
-        robot.keyPress(KeyEvent.VK_TAB);
+        robot.keyPress((int) keyMap.get(message.getBody()));
     }
 
     public void handleKeyUp(Message message) {
-
+        robot.keyRelease((int)keyMap.get(message.getBody()));
     }
 }

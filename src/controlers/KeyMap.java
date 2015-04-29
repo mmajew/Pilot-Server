@@ -4,69 +4,66 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 public class KeyMap extends HashMap{
-
     public KeyMap() {
-        put(KeyTable.TIDLE, KeyEvent.VK_DEAD_TILDE);
+            put(KeyTable.TIDLE, KeyEvent.VK_BACK_QUOTE);
+            put(KeyTable.ONE, KeyEvent.VK_1);
+            put(KeyTable.TWO, KeyEvent.VK_2);
+            put(KeyTable.THREE, KeyEvent.VK_3);
+            put(KeyTable.FOUR, KeyEvent.VK_4);
+            put(KeyTable.FIVE, KeyEvent.VK_5);
+            put(KeyTable.SIX, KeyEvent.VK_6);
+            put(KeyTable.SEVEN, KeyEvent.VK_7);
+            put(KeyTable.EIGHT, KeyEvent.VK_8);
+            put(KeyTable.NINE, KeyEvent.VK_9);
+            put(KeyTable.ZERO, KeyEvent.VK_0);
+            put(KeyTable.MINUS, KeyEvent.VK_MINUS);
+            put(KeyTable.EQUAL, KeyEvent.VK_EQUALS);
+            put(KeyTable.BACKSPACE, KeyEvent.VK_BACK_SPACE);
+            put(KeyTable.TAB, KeyEvent.VK_BACK_SPACE);
+            put(KeyTable.Q, KeyEvent.VK_Q);
+            put(KeyTable.W, KeyEvent.VK_W);
+            put(KeyTable.E, KeyEvent.VK_E);
+            put(KeyTable.R, KeyEvent.VK_R);
+            put(KeyTable.T, KeyEvent.VK_T);
+            put(KeyTable.Y, KeyEvent.VK_Y);
+            put(KeyTable.U, KeyEvent.VK_U);
+            put(KeyTable.I, KeyEvent.VK_I);
+            put(KeyTable.O, KeyEvent.VK_O);
+            put(KeyTable.P, KeyEvent.VK_P);
+            put(KeyTable.LEFT_BRACKET, KeyEvent.VK_OPEN_BRACKET);
+            put(KeyTable.RIGHT_BRACKET, KeyEvent.VK_CLOSE_BRACKET);
+            put(KeyTable.BACKSLASH, KeyEvent.VK_BACK_SLASH);
+            put(KeyTable.CAPS_LOCK, KeyEvent.VK_CAPS_LOCK);
+            put(KeyTable.A, KeyEvent.VK_A);
+            put(KeyTable.S, KeyEvent.VK_S);
+            put(KeyTable.D, KeyEvent.VK_D);
+            put(KeyTable.F, KeyEvent.VK_F);
+            put(KeyTable.G, KeyEvent.VK_G);
+            put(KeyTable.H, KeyEvent.VK_H);
+            put(KeyTable.J, KeyEvent.VK_J);
+            put(KeyTable.K, KeyEvent.VK_K);
+            put(KeyTable.L, KeyEvent.VK_L);
+            put(KeyTable.SEMI_COLON, KeyEvent.VK_SEMICOLON);
+            put(KeyTable.APOSTROPHE, KeyEvent.VK_QUOTE);
+            put(KeyTable.RETURN, KeyEvent.VK_ENTER);
+            put(KeyTable.SHIFT, KeyEvent.VK_SHIFT);
+            put(KeyTable.Z, KeyEvent.VK_Z);
+            put(KeyTable.X, KeyEvent.VK_X);
+            put(KeyTable.C, KeyEvent.VK_C);
+            put(KeyTable.V, KeyEvent.VK_V);
+            put(KeyTable.B, KeyEvent.VK_B);
+            put(KeyTable.N, KeyEvent.VK_N);
+            put(KeyTable.M, KeyEvent.VK_M);
+            put(KeyTable.COMMA, KeyEvent.VK_COMMA);
+            put(KeyTable.DOT, KeyEvent.VK_PERIOD);
+            put(KeyTable.SLASH, KeyEvent.VK_SLASH);
+            put(KeyTable.UP_ARROW, KeyEvent.VK_UP);
+            put(KeyTable.CTRL, KeyEvent.VK_CONTROL);
+            put(KeyTable.WIN, KeyEvent.VK_WINDOWS);
+            put(KeyTable.ALT, KeyEvent.VK_ALT);
+            put(KeyTable.SPACE, KeyEvent.VK_SPACE);
+            put(KeyTable.LEFT_ARROW, KeyEvent.VK_LEFT);
+            put(KeyTable.DOWN_ARROW, KeyEvent.VK_DOWN);
+            put(KeyTable.RIGHT_ARROW, KeyEvent.VK_RIGHT);
     }
 }
-
-TIDLE = "~",
-        ONE = "1",
-        TWO = "2",
-        THREE = "3",
-        FOUR = "4",
-        FIVE = "5",
-        SIX = "6",
-        SEVEN = "7",
-        EIGHT = "8",
-        NINE = "9",
-        ZERO = "0",
-        MINUS = "-",
-        EQUAL = "=",
-        BACKSPACE = "backspace",
-        TAB = "tab",
-        Q = "q",
-        W = "w",
-        E = "e",
-        R = "r",
-        T = "t",
-        Y = "y",
-        U = "u",
-        I = "i",
-        O = "o",
-        P = "p",
-        LEFT_BRACKET = "[",
-        RIGHT_BRACKET = "]",
-        BACKSLASH = "\\",
-        CAPS_LOCK = "capsLock",
-        A = "a",
-        S = "s",
-        D = "d",
-        F = "f",
-        G = "g",
-        H = "h",
-        J = "j",
-        K = "k",
-        L = "l",
-        SEMI_COLON = ";",
-        APOSTROPHE = "'",
-        RETURN = "return",
-        SHIFT = "shift",
-        Z = "z",
-        X = "x",
-        C = "c",
-        V = "v",
-        B = "b",
-        N = "n",
-        M = "m",
-        COMMA = ",",
-        DOT = ".",
-        SLASH = "/",
-        UP_ARROW = "up",
-        CTRL = "ctrl",
-        WIN = "win",
-        ALT = "alt",
-        SPACE = "space",
-        LEFT_ARROW = "left",
-        DOWN_ARROW = "down",
-        RIGHT_ARROW = "right";
