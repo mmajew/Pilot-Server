@@ -3,6 +3,7 @@ package controlers;
 
 import messages.Message;
 
+
 public class KeyboardControler extends Controler {
     private KeyMap keyMap;
 
@@ -11,10 +12,12 @@ public class KeyboardControler extends Controler {
     }
 
     public void handleKeyDown(Message message) {
-        robot.keyPress((int) keyMap.get(message.getBody()));
+        int keyCode = (int) keyMap.get(message.getBody());
+        robot.keyPress(keyCode);
     }
 
     public void handleKeyUp(Message message) {
-        robot.keyRelease((int)keyMap.get(message.getBody()));
+        int keyCode = (int) keyMap.get(message.getBody());
+        robot.keyRelease(keyCode);
     }
 }
