@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_pilot-server" default="compile.module.pilot-server">
+  <dirname property="module.pilot-server.basedir" file="${ant.file.module_pilot-server}"/>
+  
+  <property name="module.jdk.home.pilot-server" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.pilot-server" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.pilot-server" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.pilot-server" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+  
+  <property name="pilot-server.output.dir" value="${module.pilot-server.basedir}/out/production/Pilot-Server"/>
+  <property name="pilot-server.testoutput.dir" value="${module.pilot-server.basedir}/out/test/Pilot-Server"/>
+  
+  <path id="pilot-server.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="pilot-server.module.production.classpath">
+    <path refid="${module.jdk.classpath.pilot-server}"/>
+  </path>
+  
+  <path id="pilot-server.runtime.production.module.classpath">
+    <pathelement location="${pilot-server.output.dir}"/>
+  </path>
+  
+  <path id="pilot-server.module.classpath">
+    <path refid="${module.jdk.classpath.pilot-server}"/>
+    <pathelement location="${pilot-server.output.dir}"/>
+  </path>
+  
+  <path id="pilot-server.runtime.module.classpath">
+    <pathelement location="${pilot-server.testoutput.dir}"/>
+    <pathelement location="${pilot-server.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.pilot-server">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.pilot-server">
+    <patternset refid="excluded.from.module.pilot-server"/>
+  </patternset>
+  
+  <path id="pilot-server.module.sourcepath">
+    <dirset dir="${module.pilot-server.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.pilot-server" depends="compile.module.pilot-server.production,compile.module.pilot-server.tests" description="Compile module Pilot-Server"/>
+  
+  <target name="compile.module.pilot-server.production" depends="register.custom.compilers" description="Compile module Pilot-Server; production classes">
+    <mkdir dir="${pilot-server.output.dir}"/>
+    <javac2 destdir="${pilot-server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.pilot-server}/javac">
+      <compilerarg line="${compiler.args.pilot-server}"/>
+      <bootclasspath refid="pilot-server.module.bootclasspath"/>
+      <classpath refid="pilot-server.module.production.classpath"/>
+      <src refid="pilot-server.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.pilot-server"/>
+    </javac2>
+    
+    <copy todir="${pilot-server.output.dir}">
+      <fileset dir="${module.pilot-server.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.pilot-server.tests" depends="register.custom.compilers,compile.module.pilot-server.production" description="compile module Pilot-Server; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.pilot-server" description="cleanup module">
+    <delete dir="${pilot-server.output.dir}"/>
+    <delete dir="${pilot-server.testoutput.dir}"/>
+  </target>
+</project>
