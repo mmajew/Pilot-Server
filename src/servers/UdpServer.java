@@ -30,6 +30,7 @@ public class UdpServer extends Thread {
                 DatagramPacket receivePacket = new DatagramPacket(datagram, datagram.length);
                 socket.receive(receivePacket);
                 String message = new String(receivePacket.getData());
+                System.out.println("Received: " + message);
                 messageReceiver.receiveMessage(new Message(message));
             }
         } catch(IOException exception) {

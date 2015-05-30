@@ -9,18 +9,26 @@ public class RelativeCursorControler extends Controler {
     private Integer startingX;
     private Integer startingY;
 
+    private Integer currentX;
+    private Integer currentY;
+
     public RelativeCursorControler() {
-        startingX = 0;
-        startingY = 0;
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+
+        startingX = currentX = (int) b.getX();
+        startingY = currentY = (int) b.getY();
     }
 
     public void handleMouseMotion(Message message) {
-        robot.mouseMove(startingX + Integer.parseInt(message.getBodyArray().get(0)),
-                startingY + Integer.parseInt(message.getBodyArray().get(1)));
+        currentX = startingX - Integer.parseInt(message.getBodyArray().get(0));
+        currentY = startingY - Integer.parseInt(message.getBodyArray().get(1));
+
+        robot.mouseMove(currentX, currentY);
     }
 
     public void handleCursorDown() {
-        startingX = MouseInfo.getPointerInfo().getLocation().x;
-        startingY = MouseInfo.getPointerInfo().getLocation().y;
+        startingX = currentX;
+        startingY = currentY;
     }
 }
